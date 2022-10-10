@@ -4,9 +4,11 @@ import racingcar.communications.Method;
 import racingcar.communications.Request;
 import racingcar.communications.Response;
 
-public interface Controller {
+import java.util.HashMap;
 
-    public default Response dispatch(Request request) {
+public class Controller {
+
+    public Response dispatch(Request request) {
 
         Method reqMethod = request.getMethod();
 
@@ -16,6 +18,15 @@ public interface Controller {
         return this.post(request);
     }
 
-    public Response get(Request request);
-    public Response post(Request request);
+    public HashMap<String, Object> getContextData(Request request) {
+        return new HashMap<>();
+    }
+
+    public Response get(Request request) {
+        return null;
+    }
+
+    public Response post(Request request) {
+        return null;
+    }
 }

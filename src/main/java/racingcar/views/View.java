@@ -4,9 +4,34 @@ import racingcar.communications.Method;
 
 import java.util.HashMap;
 
-public interface View {
+public class View {
 
-    public void render();
+    private HashMap<String, String> requestData;
+    private HashMap<String, Object> context;
 
-    public HashMap<String, String> getRequestData();
+    public View() {
+        this.requestData = new HashMap<>();
+        this.context = new HashMap<>();
+    }
+
+    public HashMap<String, Object> getContext() {
+        return this.context;
+    }
+
+
+    public HashMap<String, String> getRequestData() {
+        return this.requestData;
+    }
+
+    public void render() {
+    }
+
+    public void setContext(HashMap<String, Object> context) {
+        this.context = context;
+    }
+
+    public void setRequestData(HashMap<String, String> requestData) {
+        this.requestData = requestData;
+    }
 }
+

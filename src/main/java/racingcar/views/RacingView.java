@@ -8,16 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class RacingView implements View {
-    private HashMap<String, Object> context;
+public class RacingView extends View {
 
-    public RacingView(HashMap<String, Object> context) {
-        this.context = context;
-    }
     @Override
     public void render() {
         System.out.println("게임 실행 결과\n");
-        Racing racing = this.context.get("racing");
+        Racing racing = (Racing) this.getContext().get("racing");
         for (GameResult result : racing.getResults()) {
             System.out.println(result.toString());
         }
@@ -27,10 +23,5 @@ public class RacingView implements View {
             arrNames.add(car.getName());
         }
         System.out.printf("최종 우승자: %s", String.join(",", arrNames));
-    }
-
-    @Override
-    public HashMap<String, String> getRequestData() {
-        return new HashMap<>();
     }
 }
