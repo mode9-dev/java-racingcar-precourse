@@ -1,10 +1,7 @@
 package racingcar;
 
 import org.junit.jupiter.api.Test;
-import racingcar.models.Car;
-import racingcar.models.GameCount;
-import racingcar.models.Racing;
-import racingcar.models.RacingVO;
+import racingcar.models.*;
 
 import java.util.HashMap;
 
@@ -34,10 +31,10 @@ public class RacingTest {
         Car[] sampleArray = {car1, car2, car3};
 
         RacingVO vo = new RacingVO(sampleArray, new GameCount("5"));
-        HashMap<Car, Integer> sampleScores = new HashMap<>();
-        sampleScores.put(car1, 3);
-        sampleScores.put(car2, 4);
-        sampleScores.put(car3, 5);
+        RacingScore sampleScores = new RacingScore();
+        sampleScores.addScore(car1, 3);
+        sampleScores.addScore(car2, 4);
+        sampleScores.addScore(car3, 5);
         Car[] winners = new Racing(vo).getWinners(sampleScores);
         assertThat(winners)
                 .hasSize(1)
@@ -52,10 +49,10 @@ public class RacingTest {
         Car[] sampleArray = {car1, car2, car3};
 
         RacingVO vo = new RacingVO(sampleArray, new GameCount("5"));
-        HashMap<Car, Integer> sampleScores = new HashMap<>();
-        sampleScores.put(car1, 1);
-        sampleScores.put(car2, 5);
-        sampleScores.put(car3, 5);
+        RacingScore sampleScores = new RacingScore();
+        sampleScores.addScore(car1, 1);
+        sampleScores.addScore(car2, 5);
+        sampleScores.addScore(car3, 5);
         Car[] winners = new Racing(vo).getWinners(sampleScores);
         assertThat(winners)
                 .hasSize(2)

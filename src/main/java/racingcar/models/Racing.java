@@ -31,12 +31,12 @@ public class Racing {
         return this.cars.length;
     }
 
-    public Car[] getWinners(HashMap<Car, Integer> scores) {
+    public Car[] getWinners(RacingScore scores) {
         Car[][] memo = new Car[this.getMaxScore() + 1][this.getMaxWinnerLength()];
         int largestScore = 0;
         for (int i = 0; i < this.cars.length; i++) {
             Car car = this.cars[i];
-            int score = scores.get(car);
+            int score = scores.getScoreOf(car);
             memo[score][i] = car;
             largestScore = Integer.max(score, largestScore);
         }
@@ -57,7 +57,7 @@ public class Racing {
         return result;
     }
 
-    public HashMap<Car, Integer> getScores() {
+    public RacingScore getScores() {
         return this.getResults().getScores();
     }
 

@@ -2,8 +2,6 @@ package racingcar;
 import org.junit.jupiter.api.Test;
 import racingcar.models.*;
 
-import java.util.HashMap;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class GameResultRepositoryTest {
@@ -24,13 +22,11 @@ public class GameResultRepositoryTest {
 
         GameResultRepository repo = new GameResultRepository(new GameResult[]{gameResult1, gameResult2});
 
-        assertThat(repo.getScores())
-                .hasSize(2)
-                .containsKeys(car1, car2)
-                .satisfies(scores -> {
-                    assertThat(scores.get(car1)).isEqualTo(expectCar1Score);
-                    assertThat(scores.get(car2)).isEqualTo(expectCar2Score);
-                });
+        RacingScore scores = repo.getScores();
+        assertThat(scores.size()).isEqualTo(2);
+        assertThat(scores.getCars()).contains(car1, car2);
+        assertThat(scores.getScoreOf(car1)).isEqualTo(expectCar1Score);
+        assertThat(scores.getScoreOf(car2)).isEqualTo(expectCar2Score);
 
     }
 }
