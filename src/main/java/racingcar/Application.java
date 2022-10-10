@@ -20,7 +20,6 @@ public class Application {
 
         View view = response.getView();
         HashMap<String, String> reqData = view.getRequestData();
-
         Controller racingController = new RacingController();
         Response response1 = racingController.post(new Request(Method.POST, reqData));
         response1.render();

@@ -6,9 +6,15 @@ import java.util.HashMap;
 
 public class GameLandingView implements View {
     private HashMap<String, String> requestData;
+    private HashMap<String, Object> context;
 
-    public GameLandingView() {
+    public GameLandingView(HashMap<String, Object> context) {
         this.requestData = new HashMap<>();
+        this.context = context;
+    }
+
+    public HashMap<String, Object> getContext() {
+        return context;
     }
 
     public HashMap<String, String> getRequestData() {
