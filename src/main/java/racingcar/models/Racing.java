@@ -6,35 +6,47 @@ import java.util.*;
 public class Racing {
     private final Car[] cars;
     private GameResultRepository results;
-    private final int gameCount;
+    private final GameCount gameCount;
 
-    public Racing(RacingRequestVO vo) {
+    public Racing(RacingVO vo) {
         this.cars = vo.getCars();
         this.gameCount = vo.getGameCount();
-    }
-
-    public Car[] getCars() {
-        return cars;
     }
 
     public GameResultRepository getResults() {
         return this.results;
     }
 
-    public Car[] getWinners() {
-        HashMap<Car, Integer> scores = this.results.getScores();
-        Car[][] memo = new Car[this.gameCount][this.cars.length];
-        for (Car car : this.results.getScores().keySet()) {
+    public Car[] removeNullFromArray(Car[] array) {
+        List<Car> arrayList = new ArrayList<>(Arrays.asList(array));
+        arrayList.removeIf(Objects::isNull);
+        return arrayList.toArray(new Car[arrayList.size()]);
+    }
+
+    public int getMaxScore() {
+        return this.gameCount.getCount();
+    }
+
+    public int getMaxWinnerLength() {
+        return this.cars.length;
+    }
+
+    public Car[] getWinners(HashMap<Car, Integer> scores) {
+        Car[][] memo = new Car[this.getMaxScore() + 1][this.getMaxWinnerLength()];
+        int largestScore = 0;
+        for (int i = 0; i < this.cars.length; i++) {
+            Car car = this.cars[i];
             int score = scores.get(car);
-            int sameScoreCarNum = memo[score].length;
-            memo[score][sameScoreCarNum] = car;
+            memo[score][i] = car;
+            largestScore = Integer.max(score, largestScore);
         }
-        return memo[this.results.maximumScore()];
+        Car[] result = memo[largestScore];
+        return this.removeNullFromArray(result);
     }
 
     public boolean calculateForwardOrNot() {
         int randomNumber = Randoms.pickNumberInRange(1, 9);
-        return randomNumber > 4;
+        return randomNumber > 3;
     }
 
     public GameResult runSingleGame() {
@@ -45,9 +57,14 @@ public class Racing {
         return result;
     }
 
+    public HashMap<Car, Integer> getScores() {
+        return this.getResults().getScores();
+    }
+
     public void run() {
-        GameResult[] results = new GameResult[this.gameCount];
-        for (int i = 0; i < this.gameCount; i++) {
+        int gameCountNum = this.gameCount.getCount();
+        GameResult[] results = new GameResult[gameCountNum];
+        for (int i = 0; i < gameCountNum; i++) {
             results[i] = this.runSingleGame();
         }
         this.results = new GameResultRepository(results);

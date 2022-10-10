@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class View {
 
-    private HashMap<String, String> requestData;
+    private final HashMap<String, String> requestData;
     private HashMap<String, Object> context;
 
     public View() {
@@ -28,10 +28,6 @@ public class View {
 
     public void setContext(HashMap<String, Object> context) {
         this.context = context;
-    }
-
-    public void setRequestData(HashMap<String, String> requestData) {
-        this.requestData = requestData;
     }
 }
 

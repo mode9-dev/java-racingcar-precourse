@@ -11,19 +11,30 @@ import racingcar.views.View;
 import java.util.HashMap;
 
 public class Application {
-    public static void main(String[] args) {
-        Request req = new Request(Method.GET, new HashMap<>());
 
+    public static Response handleLandingController() {
+        Request req = new Request(Method.GET, new HashMap<>());
         Controller landingController = new GameLandingController();
         Response response = landingController.dispatch(req);
         response.render();
+        return response;
+    }
 
-        View view = response.getView();
-        HashMap<String, String> reqData = view.getRequestData();
+    public static Response handleRacingController(HashMap<String, String> reqData) {
         Controller racingController = new RacingController();
-        Response response1 = racingController.post(new Request(Method.POST, reqData));
-        response1.render();
+        Response response = racingController.dispatch(new Request(Method.POST, reqData));
+        response.render();
+        return response;
+    }
+    public static void main(String[] args) {
+        try {
+            Response response = handleLandingController();
+            View view = response.getView();
 
-
+            handleRacingController(view.getRequestData());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            main(args);
+        }
     }
 }

@@ -12,11 +12,12 @@ public class RacingView extends View {
         System.out.println("게임 실행 결과\n");
         Racing racing = (Racing) this.getContext().get("racing");
         System.out.println(racing.getResults().toString());
-        Car[] cars = racing.getWinners();
+        Car[] cars = racing.getWinners(racing.getScores());
         ArrayList<String> arrNames = new ArrayList<>();
         for (Car car : cars) {
             arrNames.add(car.getName());
         }
-        System.out.printf("최종 우승자: %s", String.join(",", arrNames));
+        String prefix = arrNames.size() > 1 ? "공동 우승자" : "최종 우승자";
+        System.out.printf("%S : %s", prefix, String.join(",", arrNames));
     }
 }

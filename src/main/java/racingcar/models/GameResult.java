@@ -3,7 +3,7 @@ package racingcar.models;
 import java.util.HashMap;
 
 public class GameResult {
-    private HashMap<Car, Integer> dashboard = new HashMap<>();
+    private final HashMap<Car, Integer> dashboard = new HashMap<>();
 
     public GameResult(Car[] cars) {
         for (Car car : cars) {

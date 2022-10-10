@@ -1,10 +1,10 @@
 package racingcar.models;
 
-public class RacingRequestVO {
-    private Car[] cars;
-    private int gameCount;
+public class RacingVO {
+    private final Car[] cars;
+    private final GameCount gameCount;
 
-    public RacingRequestVO(Car[] cars, int gameCount) {
+    public RacingVO(Car[] cars, GameCount gameCount) {
         this.cars = cars;
         this.gameCount = gameCount;
     }
@@ -13,7 +13,7 @@ public class RacingRequestVO {
         return cars;
     }
 
-    public int getGameCount() {
+    public GameCount getGameCount() {
         return gameCount;
     }
 }
