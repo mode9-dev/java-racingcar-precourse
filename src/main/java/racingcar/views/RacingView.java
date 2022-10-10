@@ -1,12 +1,9 @@
 package racingcar.views;
 
 import racingcar.models.Car;
-import racingcar.models.GameResult;
 import racingcar.models.Racing;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 public class RacingView extends View {
 
@@ -14,9 +11,7 @@ public class RacingView extends View {
     public void render() {
         System.out.println("게임 실행 결과\n");
         Racing racing = (Racing) this.getContext().get("racing");
-        for (GameResult result : racing.getResults()) {
-            System.out.println(result.toString());
-        }
+        System.out.println(racing.getResults().toString());
         Car[] cars = racing.getWinners();
         ArrayList<String> arrNames = new ArrayList<>();
         for (Car car : cars) {
